@@ -22,6 +22,7 @@
   --text-dim:#8B9DC3;
   --glow-saffron:rgba(255,153,51,.15);
   --glow-green:rgba(19,136,8,.15);
+  --glow-chakra:rgba(0,0,128,.12);
 }
 html{scroll-behavior:smooth;font-size:16px}
 body{
@@ -33,12 +34,18 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
+/* ── SCROLL FLAG GLOW ── */
+.flag-glow{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  transition:background .8s ease;
+}
+
 /* ── HERO ── */
 .hero{
   min-height:100vh;min-height:100dvh;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   text-align:center;padding:2rem 1.5rem;
-  position:relative;overflow:hidden;
+  position:relative;overflow:hidden;z-index:1;
 }
 .hero::before{
   content:'';position:absolute;inset:0;
@@ -83,7 +90,7 @@ body{
 }
 .hero p{
   font-size:clamp(1rem,2.5vw,1.25rem);color:var(--text-dim);
-  max-width:520px;position:relative;z-index:1;margin-bottom:2rem;
+  max-width:560px;position:relative;z-index:1;margin-bottom:2rem;
 }
 .scroll-hint{
   position:relative;z-index:1;
@@ -95,7 +102,7 @@ body{
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
 
 /* ── SECTIONS ── */
-.section{padding:3rem 1.5rem;max-width:720px;margin:0 auto}
+.section{padding:3rem 1.5rem;max-width:720px;margin:0 auto;position:relative;z-index:1}
 .section-header{
   display:flex;align-items:center;gap:.75rem;
   margin-bottom:1.5rem;
@@ -107,7 +114,6 @@ body{
 }
 .section-header h2{font-size:1.5rem;font-weight:700;line-height:1.2}
 
-/* Category color schemes */
 .cat-science .section-icon{background:rgba(99,102,241,.15);color:#818cf8}
 .cat-math .section-icon{background:rgba(245,158,11,.15);color:#fbbf24}
 .cat-language .section-icon{background:rgba(16,185,129,.15);color:#34d399}
@@ -115,6 +121,7 @@ body{
 .cat-food .section-icon{background:rgba(251,146,60,.15);color:#fb923c}
 .cat-geo .section-icon{background:rgba(56,189,248,.15);color:#38bdf8}
 .cat-records .section-icon{background:rgba(168,85,247,.15);color:#c084fc}
+.cat-cinema .section-icon{background:rgba(236,72,153,.15);color:#f472b6}
 
 /* ── FACT CARDS ── */
 .facts-grid{display:flex;flex-direction:column;gap:1rem}
@@ -136,6 +143,7 @@ body{
 .cat-food .fact-card::before{background:linear-gradient(90deg,#fb923c,#f97316)}
 .cat-geo .fact-card::before{background:linear-gradient(90deg,#38bdf8,#0ea5e9)}
 .cat-records .fact-card::before{background:linear-gradient(90deg,#c084fc,#a855f7)}
+.cat-cinema .fact-card::before{background:linear-gradient(90deg,#f472b6,#ec4899)}
 
 .fact-card:hover,.fact-card:active{
   background:var(--card-hover);
@@ -150,21 +158,20 @@ body{
 }
 .fact-card h3 .emoji{font-size:1.1rem;flex-shrink:0}
 .fact-card p{font-size:.92rem;color:var(--text-dim);line-height:1.55}
-.fact-card .highlight{
-  color:var(--saffron);font-weight:600;
-}
+.fact-card .highlight{color:var(--saffron);font-weight:600}
 
 /* ── DIVIDER ── */
 .divider{
   height:1px;max-width:200px;margin:1rem auto;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);
+  position:relative;z-index:1;
 }
 
 /* ── STATS BAR ── */
 .stats{
   display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;
   padding:2.5rem 1.5rem;max-width:720px;margin:0 auto;
-  text-align:center;
+  text-align:center;position:relative;z-index:1;
 }
 .stat-num{
   font-size:clamp(1.8rem,5vw,2.5rem);font-weight:800;
@@ -178,6 +185,7 @@ body{
 .footer{
   text-align:center;padding:3rem 1.5rem 2rem;
   font-size:.8rem;color:var(--text-dim);
+  position:relative;z-index:1;
 }
 .footer .flag-mini{display:inline-flex;gap:0;border-radius:3px;overflow:hidden;vertical-align:middle;margin:0 .3rem}
 .footer .flag-mini span{width:14px;height:10px;display:block}
@@ -206,6 +214,9 @@ body{
 </head>
 <body>
 
+<!-- Flag glow background that shifts with scroll -->
+<div class="flag-glow" id="flagGlow"></div>
+
 <!-- ═══ HERO ═══ -->
 <section class="hero">
   <div class="hero-flag">
@@ -215,7 +226,7 @@ body{
   </div>
   <div class="hero-badge">InterYouth Fest 2026 &middot; Istinye University</div>
   <h1>Discover India</h1>
-  <p>A 5,000-year-old civilization that invented zero, sent a spacecraft to Mars on its first try, and feeds 150,000 people for free every single day.</p>
+  <p>A civilization of ancient roots and modern ambition — a land that helped shape zero and decimal calculation, gave the world yoga and chess, reached Mars on its first attempt, and serves free meals to thousands every day through living traditions of hospitality.</p>
   <div class="scroll-hint">
     scroll
     <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
@@ -225,7 +236,7 @@ body{
 <!-- ═══ STATS ═══ -->
 <div class="stats fade-in">
   <div><div class="stat-num">1.4B+</div><div class="stat-label">People</div></div>
-  <div><div class="stat-num">22</div><div class="stat-label">Official Languages</div></div>
+  <div><div class="stat-num">22</div><div class="stat-label">Scheduled Languages</div></div>
   <div><div class="stat-num">5,000+</div><div class="stat-label">Years of History</div></div>
 </div>
 
@@ -239,28 +250,28 @@ body{
   </div>
   <div class="facts-grid">
     <div class="fact-card">
-      <h3><span class="emoji">🌕</span> First to the Moon's South Pole</h3>
-      <p>Chandrayaan-3 made India the <span class="highlight">first country</span> to land near the Moon's south pole in 2023.</p>
+      <h3><span class="emoji">🌕</span> Lunar South Pole</h3>
+      <p>In 2023, Chandrayaan-3 made India the <span class="highlight">first country to soft-land</span> near the Moon's south polar region.</p>
     </div>
     <div class="fact-card">
       <h3><span class="emoji">🔴</span> Mars on the First Try</h3>
-      <p>ISRO reached Mars on its maiden attempt — with a budget <span class="highlight">smaller than the movie "Gravity"</span>.</p>
+      <p>Mangalyaan reached Mars orbit on India's <span class="highlight">first attempt</span>, a landmark low-cost interplanetary mission.</p>
     </div>
     <div class="fact-card">
-      <h3><span class="emoji">🔬</span> Father of Surgery</h3>
-      <p>Sushruta performed cataract surgery, cesareans, and even brain surgery <span class="highlight">over 2,600 years ago</span>.</p>
+      <h3><span class="emoji">🔬</span> Ancient Surgical Tradition</h3>
+      <p>Sushruta's surgical tradition described sophisticated procedures and instruments, including <span class="highlight">cataract-related techniques</span>, over 2,000 years ago.</p>
     </div>
     <div class="fact-card">
-      <h3><span class="emoji">🩺</span> World's Oldest Medicine</h3>
-      <p>Ayurveda was consolidated 2,500 years ago — the <span class="highlight">earliest school of medicine</span> known to humanity.</p>
+      <h3><span class="emoji">🩺</span> Ayurveda</h3>
+      <p>Ayurveda is one of the world's <span class="highlight">oldest living medical traditions</span>, consolidated over 2,500 years ago.</p>
     </div>
     <div class="fact-card">
-      <h3><span class="emoji">🛰️</span> Lightest Satellite Ever</h3>
-      <p>Indian students built a satellite weighing just <span class="highlight">64 grams</span> — lighter than a tennis ball.</p>
+      <h3><span class="emoji">🛰️</span> KalamSat</h3>
+      <p>Indian students built KalamSat, a <span class="highlight">64-gram experimental space payload</span> — lighter than a tennis ball.</p>
     </div>
     <div class="fact-card">
-      <h3><span class="emoji">💻</span> Supercomputer Club</h3>
-      <p>India built its own supercomputer indigenously, joining only <span class="highlight">the US and Japan</span> in this elite group.</p>
+      <h3><span class="emoji">💻</span> Indigenous Supercomputing</h3>
+      <p>India launched its own supercomputing effort with the <span class="highlight">PARAM series</span>, building high-performance computing indigenously.</p>
     </div>
   </div>
 </section>
@@ -273,24 +284,20 @@ body{
   </div>
   <div class="facts-grid">
     <div class="fact-card">
-      <h3><span class="emoji">0️⃣</span> The Invention of Zero</h3>
-      <p>Without India's invention of <span class="highlight">zero</span>, modern computing, physics, and engineering simply wouldn't exist.</p>
+      <h3><span class="emoji">0️⃣</span> Zero &amp; Decimal Place Value</h3>
+      <p>India's mathematical tradition helped develop <span class="highlight">zero as a numeral</span> and the decimal place-value system — foundations of modern calculation.</p>
     </div>
     <div class="fact-card">
-      <h3><span class="emoji">📐</span> Algebra, Trig &amp; Calculus</h3>
-      <p>All three branches of mathematics <span class="highlight">originated in India</span> — centuries before they reached Europe.</p>
-    </div>
-    <div class="fact-card">
-      <h3><span class="emoji">🔢</span> Decimal System</h3>
-      <p>The place-value and decimal systems were developed in India around <span class="highlight">100 B.C.</span></p>
+      <h3><span class="emoji">📐</span> Pioneers of Mathematics</h3>
+      <p>Indian mathematicians made major early contributions to <span class="highlight">algebra, trigonometry, decimal notation, and infinite series</span>.</p>
     </div>
     <div class="fact-card">
       <h3><span class="emoji">⚡</span> Shakuntala Devi</h3>
       <p>The "Human Computer" multiplied two 13-digit numbers in her head in just <span class="highlight">28 seconds</span>.</p>
     </div>
     <div class="fact-card">
-      <h3><span class="emoji">π</span> Pi Before Europe</h3>
-      <p>Aryabhata calculated π ≈ 3.1416 in the <span class="highlight">5th century</span> — a millennium ahead of the West.</p>
+      <h3><span class="emoji">π</span> Aryabhata's Pi</h3>
+      <p>Aryabhata gave a remarkably accurate approximation of <span class="highlight">π ≈ 3.1416</span> in the 5th century.</p>
     </div>
   </div>
 </section>
@@ -303,20 +310,20 @@ body{
   </div>
   <div class="facts-grid">
     <div class="fact-card">
-      <h3><span class="emoji">📰</span> 4,700 Daily Newspapers</h3>
-      <p>Published every day in more than <span class="highlight">300 languages</span> — the most linguistically diverse press on Earth.</p>
+      <h3><span class="emoji">📰</span> Multilingual Press</h3>
+      <p>India has one of the world's <span class="highlight">largest and most multilingual</span> newspaper ecosystems.</p>
     </div>
     <div class="fact-card">
-      <h3><span class="emoji">🇬🇧</span> 2nd Largest English Speakers</h3>
-      <p>India has <span class="highlight">128+ million</span> English speakers — second only to the United States.</p>
+      <h3><span class="emoji">🗺️</span> 121 Languages, 270 Mother Tongues</h3>
+      <p>India's 2011 Census recorded <span class="highlight">121 languages and 270 mother tongues</span>, with 22 scheduled languages.</p>
     </div>
     <div class="fact-card">
-      <h3><span class="emoji">🗺️</span> 720+ Dialects</h3>
-      <p>Beyond the 22 official languages, India has <span class="highlight">over 720 dialects</span> across 13 distinct scripts.</p>
+      <h3><span class="emoji">🇬🇧</span> Massive English-Speaking Population</h3>
+      <p>India has <span class="highlight">over 100 million English speakers</span>, mostly as a second or third language.</p>
     </div>
     <div class="fact-card">
-      <h3><span class="emoji">🖥️</span> Most Computer-Friendly Language</h3>
-      <p>Sanskrit's precise grammar makes it the <span class="highlight">most suitable language</span> for computer processing.</p>
+      <h3><span class="emoji">📜</span> Sanskrit Grammar</h3>
+      <p>Sanskrit has one of the world's <span class="highlight">most sophisticated grammatical traditions</span>, formalized by Panini around the 4th century BCE.</p>
     </div>
   </div>
 </section>
@@ -325,40 +332,48 @@ body{
 <section class="section cat-culture fade-in">
   <div class="section-header">
     <div class="section-icon">🎭</div>
-    <h2>Culture &amp; History</h2>
+    <h2>Culture &amp; Heritage</h2>
   </div>
   <div class="facts-grid">
     <div class="fact-card">
       <h3><span class="emoji">♟️</span> Chess Was Born Here</h3>
-      <p>Invented over 1,500 years ago as <span class="highlight">"Chaturanga"</span> — the ancestor of every chess game played today.</p>
+      <p>Chess traces its roots to India's <span class="highlight">chaturanga</span>, played by the 6th–7th century CE.</p>
     </div>
     <div class="fact-card">
       <h3><span class="emoji">🎲</span> Snakes &amp; Ladders</h3>
-      <p>Originally <span class="highlight">"Moksha Patam"</span> — created in the 13th century to teach the concept of karma.</p>
+      <p>Snakes &amp; Ladders evolved from Indian moral board-game traditions such as <span class="highlight">Moksha Patam</span>.</p>
     </div>
     <div class="fact-card">
-      <h3><span class="emoji">🧘</span> Yoga: 5,000+ Years</h3>
-      <p>Practiced for over five millennia, yoga is India's gift to <span class="highlight">global wellness</span>.</p>
+      <h3><span class="emoji">🧘</span> Yoga — UNESCO Heritage</h3>
+      <p>Yoga is an ancient Indian discipline and a <span class="highlight">UNESCO-recognized</span> intangible cultural heritage.</p>
     </div>
     <div class="fact-card">
-      <h3><span class="emoji">🥋</span> Martial Arts Origin</h3>
-      <p>Martial arts were <span class="highlight">created in India</span> and spread to Asia through Buddhist missionaries.</p>
+      <h3><span class="emoji">🥋</span> Kalaripayattu</h3>
+      <p>India has ancient martial traditions, including <span class="highlight">Kalaripayattu from Kerala</span> — one of the world's oldest fighting systems.</p>
     </div>
     <div class="fact-card">
-      <h3><span class="emoji">🏛️</span> World's First University</h3>
-      <p>Takshila was established in <span class="highlight">700 B.C.</span> — over 2,700 years ago.</p>
+      <h3><span class="emoji">🏛️</span> Taxila — Ancient Learning</h3>
+      <p>Taxila was one of the ancient world's <span class="highlight">great centers of learning</span>, attracting scholars from across Asia.</p>
     </div>
     <div class="fact-card">
       <h3><span class="emoji">🙏</span> Birthplace of 4 Religions</h3>
-      <p>Hinduism, Buddhism, Jainism, and Sikhism — followed by <span class="highlight">25% of the world</span>.</p>
+      <p>The Indian subcontinent gave rise to <span class="highlight">Hinduism, Buddhism, Jainism, and Sikhism</span>.</p>
     </div>
     <div class="fact-card">
-      <h3><span class="emoji">💎</span> Only Source of Diamonds</h3>
-      <p>Until 1896, India was the <span class="highlight">world's only source</span> of diamonds.</p>
+      <h3><span class="emoji">💎</span> Ancient Diamond Source</h3>
+      <p>For centuries, India was one of the world's <span class="highlight">earliest and most important diamond sources</span>.</p>
     </div>
     <div class="fact-card">
-      <h3><span class="emoji">🏙️</span> Oldest Living City</h3>
-      <p>Varanasi has been <span class="highlight">continuously inhabited</span> for over 5,000 years.</p>
+      <h3><span class="emoji">🏙️</span> Varanasi</h3>
+      <p>Varanasi is one of the world's <span class="highlight">oldest continuously inhabited cities</span> and a major sacred center.</p>
+    </div>
+    <div class="fact-card">
+      <h3><span class="emoji">🛕</span> Kumbh Mela</h3>
+      <p>UNESCO recognizes Kumbh Mela as the <span class="highlight">largest peaceful congregation of pilgrims</span> on Earth.</p>
+    </div>
+    <div class="fact-card">
+      <h3><span class="emoji">🪨</span> Ellora Caves</h3>
+      <p>At Ellora, Buddhist, Hindu, and Jain monuments were carved into the <span class="highlight">same basalt cliffs</span> — a symbol of coexistence.</p>
     </div>
   </div>
 </section>
@@ -372,23 +387,23 @@ body{
   <div class="facts-grid">
     <div class="fact-card">
       <h3><span class="emoji">🥛</span> World's Largest Milk Producer</h3>
-      <p>India produces over <span class="highlight">24% of the world's milk</span> supply.</p>
+      <p>India is the world's largest milk producer, contributing roughly <span class="highlight">a quarter of global milk output</span>.</p>
     </div>
     <div class="fact-card">
       <h3><span class="emoji">🥭</span> Mango Capital</h3>
-      <p>India grows approximately <span class="highlight">50% of all mangoes</span> on the planet.</p>
+      <p>India is the <span class="highlight">world's largest mango producer</span>.</p>
     </div>
     <div class="fact-card">
-      <h3><span class="emoji">🌶️</span> Spice King</h3>
-      <p>The world's largest spice producer and exporter — Delhi's <span class="highlight">Khari Baoli</span> is Asia's biggest spice market.</p>
+      <h3><span class="emoji">🌶️</span> Spice Powerhouse</h3>
+      <p>India is a global spice powerhouse; Delhi's <span class="highlight">Khari Baoli</span> is one of Asia's most famous spice markets.</p>
     </div>
     <div class="fact-card">
       <h3><span class="emoji">🥗</span> Vegetarian Nation</h3>
-      <p>About <span class="highlight">38% of Indians</span> are strict vegetarians — the highest percentage of any country.</p>
+      <p>India has one of the <span class="highlight">world's largest vegetarian populations</span>.</p>
     </div>
     <div class="fact-card">
-      <h3><span class="emoji">🍽️</span> 150,000 Free Meals Daily</h3>
-      <p>The Golden Temple in Amritsar serves <span class="highlight">free meals to everyone</span>, regardless of religion or background.</p>
+      <h3><span class="emoji">🍽️</span> Golden Temple Langar</h3>
+      <p>At the Golden Temple in Amritsar, anyone can sit together and eat a <span class="highlight">free meal</span> — one of the world's most powerful living traditions of service.</p>
     </div>
   </div>
 </section>
@@ -401,28 +416,46 @@ body{
   </div>
   <div class="facts-grid">
     <div class="fact-card">
-      <h3><span class="emoji">🏔️</span> Growing Himalayas</h3>
-      <p>The Himalayas grow approximately <span class="highlight">2 inches every year</span> — and they're still rising.</p>
+      <h3><span class="emoji">🏔️</span> Rising Himalayas</h3>
+      <p>The Himalayas are <span class="highlight">still rising</span> because the Indian tectonic plate continues to push into Eurasia.</p>
     </div>
     <div class="fact-card">
-      <h3><span class="emoji">🌧️</span> Wettest Place on Earth</h3>
-      <p>Mawsynram, Meghalaya receives over <span class="highlight">11,000 mm</span> of rain annually.</p>
+      <h3><span class="emoji">🌧️</span> Among the Wettest Places</h3>
+      <p>Mawsynram, Meghalaya, is among the <span class="highlight">wettest inhabited places on Earth</span>, receiving over 11,000 mm of annual rainfall.</p>
     </div>
     <div class="fact-card">
-      <h3><span class="emoji">☄️</span> Meteor Lake</h3>
-      <p>Lonar Lake was formed by a <span class="highlight">meteor strike 52,000 years ago</span> — one of only four such lakes on Earth.</p>
+      <h3><span class="emoji">☄️</span> Lonar Crater Lake</h3>
+      <p>Lonar Lake is a rare saline-alkaline lake inside a <span class="highlight">meteor-impact crater</span> in Maharashtra.</p>
     </div>
     <div class="fact-card">
-      <h3><span class="emoji">🏝️</span> Uncontacted Tribe</h3>
-      <p>North Sentinel Island is home to one of <span class="highlight">Earth's last uncontacted peoples</span>.</p>
+      <h3><span class="emoji">🏝️</span> North Sentinel Island</h3>
+      <p>North Sentinel Island is home to the Sentinelese, an Indigenous people <span class="highlight">protected by strict non-contact rules</span>.</p>
     </div>
     <div class="fact-card">
       <h3><span class="emoji">🌳</span> Largest Mangrove Forest</h3>
-      <p>The Sundarbans — shared with Bangladesh — is the <span class="highlight">world's largest mangrove forest</span>.</p>
+      <p>The Sundarbans, shared by India and Bangladesh, form the <span class="highlight">world's largest mangrove forest</span>.</p>
     </div>
     <div class="fact-card">
       <h3><span class="emoji">🕐</span> One Time Zone</h3>
-      <p>Despite spanning 2,933 km east-to-west, India uses a <span class="highlight">single time zone</span> (UTC+5:30).</p>
+      <p>Despite spanning over 2,900 km east-to-west, India uses a <span class="highlight">single time zone</span> (UTC+5:30).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CINEMA ═══ -->
+<section class="section cat-cinema fade-in">
+  <div class="section-header">
+    <div class="section-icon">🎬</div>
+    <h2>Film &amp; Modern Culture</h2>
+  </div>
+  <div class="facts-grid">
+    <div class="fact-card">
+      <h3><span class="emoji">🎥</span> World's Most Prolific Film Producer</h3>
+      <p>India is the global leader in film production, producing <span class="highlight">over 2,500 films</span> annually.</p>
+    </div>
+    <div class="fact-card">
+      <h3><span class="emoji">🎞️</span> Beyond Bollywood</h3>
+      <p>Indian cinema spans <span class="highlight">Hindi, Tamil, Telugu, Malayalam, Bengali, Kannada, Marathi</span> and many more film traditions.</p>
     </div>
   </div>
 </section>
@@ -431,32 +464,36 @@ body{
 <section class="section cat-records fade-in">
   <div class="section-header">
     <div class="section-icon">🏆</div>
-    <h2>Mind-Blowing Records</h2>
+    <h2>Impressive Records</h2>
   </div>
   <div class="facts-grid">
     <div class="fact-card">
       <h3><span class="emoji">🗽</span> World's Tallest Statue</h3>
-      <p>The Statue of Unity stands at <span class="highlight">182 meters</span> — nearly double the Statue of Liberty.</p>
+      <p>The Statue of Unity stands at <span class="highlight">182 meters</span> — the world's tallest statue.</p>
     </div>
     <div class="fact-card">
-      <h3><span class="emoji">✉️</span> Most Post Offices</h3>
-      <p>150,000+ post offices — including the world's only <span class="highlight">floating post office</span> on Dal Lake, Kashmir.</p>
+      <h3><span class="emoji">✉️</span> World's Largest Postal Network</h3>
+      <p>India Post operates about <span class="highlight">165,000 post offices</span> — including a floating post office on Dal Lake, Kashmir.</p>
     </div>
     <div class="fact-card">
-      <h3><span class="emoji">🏗️</span> First Granite Temple</h3>
-      <p>The Brihadeswara Temple was built in <span class="highlight">1010 A.D.</span> entirely from granite — a first in architecture.</p>
+      <h3><span class="emoji">🏗️</span> Brihadisvara Temple</h3>
+      <p>Completed around <span class="highlight">1010 CE</span>, Brihadisvara is one of India's greatest granite temple monuments.</p>
     </div>
     <div class="fact-card">
       <h3><span class="emoji">🛣️</span> 2nd Largest Road Network</h3>
-      <p><span class="highlight">4.87 million km</span> of roads — enough to circle the Earth 121 times.</p>
+      <p>India has the world's <span class="highlight">second-largest road network</span>.</p>
     </div>
     <div class="fact-card">
       <h3><span class="emoji">🏏</span> Highest Cricket Ground</h3>
       <p>Chail, Himachal Pradesh hosts a cricket pitch at <span class="highlight">2,444 meters</span> above sea level.</p>
     </div>
     <div class="fact-card">
-      <h3><span class="emoji">👑</span> Gold Love</h3>
-      <p>Indian women collectively hold over <span class="highlight">21,000 tons of gold</span> — more than the US, Germany &amp; IMF combined.</p>
+      <h3><span class="emoji">👑</span> Gold Reserves</h3>
+      <p>Indian households hold one of the world's <span class="highlight">largest private stocks of gold</span> — often estimated above 20,000 tonnes.</p>
+    </div>
+    <div class="fact-card">
+      <h3><span class="emoji">🕌</span> Taj Mahal</h3>
+      <p>The Taj Mahal is a <span class="highlight">17th-century marble masterpiece</span> and UNESCO World Heritage Site.</p>
     </div>
   </div>
 </section>
@@ -469,14 +506,54 @@ body{
     <span class="flag-mini"><span style="background:var(--saffron)"></span><span style="background:var(--white)"></span><span style="background:var(--green)"></span></span>
     at InterYouth Fest 2026 &middot; <a href="https://www.istinye.edu.tr/en/events/interyouth-fest" target="_blank">Istinye University</a>
   </p>
-  <span class="jai">Jai Hind 🇮🇳</span>
+  <span class="jai">Jai Hind</span>
 </footer>
 
 <script>
+// Fade-in on scroll
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
 }, { threshold: 0.1 });
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Flag-color glow that shifts as user scrolls: saffron → white/chakra blue → green
+const glow = document.getElementById('flagGlow');
+window.addEventListener('scroll', () => {
+  const t = Math.min(document.documentElement.scrollTop / (document.documentElement.scrollHeight - window.innerHeight), 1);
+
+  let r, g, b, a;
+  if (t < 0.15) {
+    // Saffron zone
+    const p = t / 0.15;
+    r = 255; g = 153; b = 51; a = 0.12 * (1 - p * 0.3);
+  } else if (t < 0.35) {
+    // Saffron → Chakra blue transition
+    const p = (t - 0.15) / 0.2;
+    r = Math.round(255 - 255 * p);
+    g = Math.round(153 - 153 * p);
+    b = Math.round(51 + 77 * p);
+    a = 0.084 + 0.036 * p;
+  } else if (t < 0.65) {
+    // Chakra blue zone
+    r = 0; g = 0; b = 128; a = 0.12;
+  } else if (t < 0.85) {
+    // Chakra blue → Green transition
+    const p = (t - 0.65) / 0.2;
+    r = Math.round(0 + 19 * p);
+    g = Math.round(0 + 136 * p);
+    b = Math.round(128 - 120 * p);
+    a = 0.12;
+  } else {
+    // Green zone
+    r = 19; g = 136; b = 8; a = 0.12;
+  }
+
+  glow.style.background = `
+    radial-gradient(ellipse 80% 40% at 50% 50%, rgba(${r},${g},${b},${a}), transparent 70%),
+    radial-gradient(ellipse 50% 60% at 20% 80%, rgba(${r},${g},${b},${a * 0.5}), transparent 60%),
+    radial-gradient(ellipse 50% 60% at 80% 20%, rgba(${r},${g},${b},${a * 0.5}), transparent 60%)
+  `;
+}, { passive: true });
 </script>
 </body>
 </html>
