@@ -184,11 +184,13 @@ body{
   background:rgba(255,255,255,.7);backdrop-filter:blur(4px);
   border:1px solid rgba(0,0,0,.06);border-radius:16px;
   padding:1.25rem 1.5rem;transition:all .25s ease;overflow:hidden;
+  display:flex;gap:1rem;align-items:center;
 }
 .fact-card:hover{
   background:rgba(255,255,255,.9);transform:translateY(-2px);
   box-shadow:0 8px 24px rgba(0,0,0,.08);
 }
+.fact-content{flex:1;min-width:0}
 .fact-card h3{
   font-size:1rem;font-weight:600;margin-bottom:.4rem;
   display:flex;align-items:baseline;gap:.5rem;color:var(--text-dark);
@@ -196,6 +198,10 @@ body{
 .fact-card h3 .emoji{font-size:1.1rem;flex-shrink:0}
 .fact-card p{font-size:.92rem;color:var(--text-mid);line-height:1.55}
 .highlight{color:var(--navy);font-weight:700}
+.fact-thumb{
+  width:64px;height:64px;border-radius:12px;object-fit:cover;
+  flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
 
 /* ═══ DIVIDER ═══ */
 .divider{
@@ -329,21 +335,21 @@ body{
     </div>
     <div class="facts-grid">
       <div class="fact-card">
-        <h3><span class="emoji">🌕</span> Lunar South Pole</h3>
-        <p>In 2023, Chandrayaan-3 made India the <span class="highlight">first country to soft-land</span> near the Moon's south polar region.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🌕</span> Lunar South Pole</h3>
+        <p>In 2023, Chandrayaan-3 made India the <span class="highlight">first country to soft-land</span> near the Moon's south polar region.</p></div><img class="fact-thumb" src="images/chandrayaan3.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">🔴</span> Mars on the First Try</h3>
-        <p>Mangalyaan reached Mars orbit on India's <span class="highlight">first attempt</span>, a landmark low-cost interplanetary mission.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🔴</span> Mars on the First Try</h3>
+        <p>Mangalyaan reached Mars orbit on India's <span class="highlight">first attempt</span>, a landmark low-cost interplanetary mission.</p></div><img class="fact-thumb" src="images/mangalyaan.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">🔬</span> Ancient Surgical Tradition</h3>
-        <p>Sushruta's texts described rhinoplasty, cataract techniques, and over <span class="highlight">120 surgical instruments</span> — over 2,000 years ago.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🔬</span> Ancient Surgical Tradition</h3>
+        <p>Sushruta's texts described rhinoplasty, cataract techniques, and over <span class="highlight">120 surgical instruments</span> — over 2,000 years ago.</p></div><img class="fact-thumb" src="images/rhinoplasty.png" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">🩺</span> Ayurveda</h3>
-        <p>One of the world's <span class="highlight">oldest living medical traditions</span>. Charaka's text even described the genetic basis of disease using seed-and-part theory.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🩺</span> Ayurveda</h3>
+        <p>One of the world's <span class="highlight">oldest living medical traditions</span>. Charaka's text even described the genetic basis of disease using seed-and-part theory.</p></div><img class="fact-thumb" src="images/oculist.png" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
         <h3><span class="emoji">🛰️</span> KalamSat</h3>
         <p>Indian students built KalamSat, a <span class="highlight">64-gram experimental space payload</span> — lighter than a tennis ball.</p>
@@ -367,17 +373,17 @@ body{
     </div>
     <div class="facts-grid">
       <div class="fact-card">
-        <h3><span class="emoji">0️⃣</span> Zero &amp; Decimal Place Value</h3>
-        <p>India developed <span class="highlight">zero as a numeral</span> and the decimal place-value system — then transmitted to Europe via Arab scholars as "Arabic" numerals.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">0️⃣</span> Zero &amp; Decimal Place Value</h3>
+        <p>India developed <span class="highlight">zero as a numeral</span> and the decimal place-value system — then transmitted to Europe via Arab scholars as "Arabic" numerals.</p></div><img class="fact-thumb" src="images/numeral-evolution.png" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
         <h3><span class="emoji">📐</span> Geometry Before Euclid</h3>
         <p>The Sulbasutras (8th–6th c. BCE) gave a geometric statement of the <span class="highlight">Pythagorean theorem</span> centuries before Euclid formalized it.</p>
       </div>
       <div class="fact-card">
-        <h3><span class="emoji">⚡</span> Shakuntala Devi</h3>
-        <p>The "Human Computer" multiplied two 13-digit numbers in her head in just <span class="highlight">28 seconds</span>.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">⚡</span> Shakuntala Devi</h3>
+        <p>The "Human Computer" multiplied two 13-digit numbers in her head in just <span class="highlight">28 seconds</span>.</p></div><img class="fact-thumb" src="images/shakuntala_devi.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
         <h3><span class="emoji">π</span> Aryabhata's Pi</h3>
         <p>Aryabhata gave π ≈ <span class="highlight">3.1416</span> in the 5th century — and humbly noted it was "approximate."</p>
@@ -435,17 +441,17 @@ body{
     </div>
     <div class="facts-grid">
       <div class="fact-card">
-        <h3><span class="emoji">♟️</span> Chess Was Born Here</h3>
-        <p>Chess traces its roots to India's <span class="highlight">chaturanga</span>, played by the 6th–7th century CE.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">♟️</span> Chess Was Born Here</h3>
+        <p>Chess traces its roots to India's <span class="highlight">chaturanga</span>, played by the 6th–7th century CE.</p></div><img class="fact-thumb" src="images/chaturanga.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
         <h3><span class="emoji">🎲</span> Snakes &amp; Ladders</h3>
         <p>Evolved from Indian moral board-game traditions such as <span class="highlight">Moksha Patam</span>.</p>
       </div>
       <div class="fact-card">
-        <h3><span class="emoji">🧘</span> Yoga — UNESCO Heritage</h3>
-        <p>An ancient Indian discipline and <span class="highlight">UNESCO-recognized</span> intangible cultural heritage.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🧘</span> Yoga — UNESCO Heritage</h3>
+        <p>An ancient Indian discipline and <span class="highlight">UNESCO-recognized</span> intangible cultural heritage.</p></div><img class="fact-thumb" src="images/yoga.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
         <h3><span class="emoji">🥋</span> Kalaripayattu</h3>
         <p>India's ancient martial tradition from <span class="highlight">Kerala</span> — one of the world's oldest fighting systems.</p>
@@ -467,13 +473,13 @@ body{
         <p>One of the world's <span class="highlight">oldest continuously inhabited cities</span> and a major sacred center.</p>
       </div>
       <div class="fact-card">
-        <h3><span class="emoji">🛕</span> Kumbh Mela</h3>
-        <p>UNESCO recognizes it as the <span class="highlight">largest peaceful congregation of pilgrims</span> on Earth.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🛕</span> Kumbh Mela</h3>
+        <p>UNESCO recognizes it as the <span class="highlight">largest peaceful congregation of pilgrims</span> on Earth.</p></div><img class="fact-thumb" src="images/kumbh_mela.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">🪨</span> Ellora Caves</h3>
-        <p>Buddhist, Hindu, and Jain monuments carved into the <span class="highlight">same basalt cliffs</span> — a symbol of coexistence.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🪨</span> Ellora Caves</h3>
+        <p>Buddhist, Hindu, and Jain monuments carved into the <span class="highlight">same basalt cliffs</span> — a symbol of coexistence.</p></div><img class="fact-thumb" src="images/ellora_caves.jpg" alt="" loading="lazy">
+    </div>
     </div>
   </section>
 </div>
@@ -497,9 +503,9 @@ body{
         <p>India is the <span class="highlight">world's largest mango producer</span>.</p>
       </div>
       <div class="fact-card">
-        <h3><span class="emoji">🌶️</span> Spice Powerhouse</h3>
-        <p>Delhi's <span class="highlight">Khari Baoli</span> is one of Asia's most famous spice markets.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🌶️</span> Spice Powerhouse</h3>
+        <p>Delhi's <span class="highlight">Khari Baoli</span> is one of Asia's most famous spice markets.</p></div><img class="fact-thumb" src="images/khari_baoli.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
         <h3><span class="emoji">🥗</span> Vegetarian Nation</h3>
         <p>India has one of the <span class="highlight">world's largest vegetarian populations</span>.</p>
@@ -527,13 +533,13 @@ body{
     </div>
     <div class="facts-grid">
       <div class="fact-card">
-        <h3><span class="emoji">🏔️</span> Rising Himalayas</h3>
-        <p>The Himalayas are <span class="highlight">still rising</span> as the Indian plate pushes into Eurasia.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🏔️</span> Rising Himalayas</h3>
+        <p>The Himalayas are <span class="highlight">still rising</span> as the Indian plate pushes into Eurasia.</p></div><img class="fact-thumb" src="images/himalayas.png" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">🌧️</span> Among the Wettest Places</h3>
-        <p>Mawsynram, Meghalaya receives over <span class="highlight">11,000 mm</span> of annual rainfall.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🌧️</span> Among the Wettest Places</h3>
+        <p>Mawsynram, Meghalaya receives over <span class="highlight">11,000 mm</span> of annual rainfall.</p></div><img class="fact-thumb" src="images/mawsynram.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
         <h3><span class="emoji">☄️</span> Lonar Crater Lake</h3>
         <p>A rare saline-alkaline lake inside a <span class="highlight">meteor-impact crater</span> in Maharashtra.</p>
@@ -543,9 +549,9 @@ body{
         <p>Home to the Sentinelese, an Indigenous people <span class="highlight">protected by strict non-contact rules</span>.</p>
       </div>
       <div class="fact-card">
-        <h3><span class="emoji">🌳</span> Largest Mangrove Forest</h3>
-        <p>The Sundarbans form the <span class="highlight">world's largest mangrove forest</span>.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🌳</span> Largest Mangrove Forest</h3>
+        <p>The Sundarbans form the <span class="highlight">world's largest mangrove forest</span>.</p></div><img class="fact-thumb" src="images/sundarbans.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
         <h3><span class="emoji">🕐</span> One Time Zone</h3>
         <p>Over 2,900 km east-to-west, one <span class="highlight">single time zone</span> — UTC+5:30.</p>
@@ -565,9 +571,9 @@ body{
     </div>
     <div class="facts-grid">
       <div class="fact-card">
-        <h3><span class="emoji">🎥</span> Most Prolific Film Producer</h3>
-        <p>India produces <span class="highlight">over 2,500 films</span> annually — leading the world.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🎥</span> Most Prolific Film Producer</h3>
+        <p>India produces <span class="highlight">over 2,500 films</span> annually — leading the world.</p></div><img class="fact-thumb" src="images/bollywood.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
         <h3><span class="emoji">🎞️</span> Beyond Bollywood</h3>
         <p>Indian cinema spans <span class="highlight">Hindi, Tamil, Telugu, Malayalam, Bengali, Kannada, Marathi</span> and more.</p>
@@ -587,13 +593,13 @@ body{
     </div>
     <div class="facts-grid">
       <div class="fact-card">
-        <h3><span class="emoji">🗽</span> World's Tallest Statue</h3>
-        <p>The Statue of Unity — <span class="highlight">182 meters</span> tall.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🗽</span> World's Tallest Statue</h3>
+        <p>The Statue of Unity — <span class="highlight">182 meters</span> tall.</p></div><img class="fact-thumb" src="images/statue_of_unity.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">✉️</span> Largest Postal Network</h3>
-        <p>India Post operates about <span class="highlight">165,000 post offices</span> — including a floating one on Dal Lake.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">✉️</span> Largest Postal Network</h3>
+        <p>India Post operates about <span class="highlight">165,000 post offices</span> — including a floating one on Dal Lake.</p></div><img class="fact-thumb" src="images/dal_lake_post.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
         <h3><span class="emoji">🏗️</span> Brihadisvara Temple</h3>
         <p>Completed around <span class="highlight">1010 CE</span>, one of India's greatest granite monuments.</p>
@@ -611,13 +617,13 @@ body{
         <p>Indian households hold one of the world's <span class="highlight">largest private gold stocks</span> — above 20,000 tonnes.</p>
       </div>
       <div class="fact-card">
-        <h3><span class="emoji">🕌</span> Taj Mahal</h3>
-        <p>A <span class="highlight">17th-century marble masterpiece</span> and UNESCO World Heritage Site.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🕌</span> Taj Mahal</h3>
+        <p>A <span class="highlight">17th-century marble masterpiece</span> and UNESCO World Heritage Site.</p></div><img class="fact-thumb" src="images/taj_mahal.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">⚙️</span> Rust-Free Iron Pillar</h3>
-        <p>Delhi's Iron Pillar has stood <span class="highlight">virtually rust-free for over 1,600 years</span> — a marvel of ancient Indian metallurgy.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">⚙️</span> Rust-Free Iron Pillar</h3>
+        <p>Delhi's Iron Pillar has stood <span class="highlight">virtually rust-free for over 1,600 years</span> — a marvel of ancient Indian metallurgy.</p></div><img class="fact-thumb" src="images/iron_pillar.jpg" alt="" loading="lazy">
+    </div>
     </div>
   </section>
 </div>
