@@ -85,44 +85,124 @@ body{
   box-shadow:0 8px 40px rgba(0,0,0,.12);
   aspect-ratio:16/10;background:#111;
 }
+@media(max-width:639px){.slideshow{aspect-ratio:3/4;border-radius:16px}}
 .slide{
   position:absolute;inset:0;opacity:0;
   transition:opacity .8s ease;
   display:flex;align-items:center;justify-content:center;
-  flex-direction:column;padding:1.5rem;
+  flex-direction:column;padding:1.5rem 1rem;
 }
 .slide.active{opacity:1}
 .slide img{
-  max-width:100%;max-height:55%;object-fit:contain;
-  border-radius:12px;margin-bottom:1rem;
+  max-width:100%;max-height:50%;object-fit:contain;
+  border-radius:12px;margin-bottom:.75rem;
 }
+@media(max-width:639px){.slide img{max-height:45%}}
 .slide-caption{
   text-align:center;color:var(--white);
-  font-size:.95rem;line-height:1.5;
-  max-width:90%;
+  font-size:.85rem;line-height:1.5;
+  max-width:92%;
 }
+@media(min-width:640px){.slide-caption{font-size:.95rem}}
 .slide-caption strong{color:var(--saffron-mid);font-weight:700}
 .slide-nav{
   position:absolute;bottom:12px;left:50%;transform:translateX(-50%);
-  display:flex;gap:8px;z-index:2;
+  display:flex;gap:6px;z-index:2;flex-wrap:wrap;justify-content:center;
 }
 .slide-dot{
-  width:10px;height:10px;border-radius:50%;
+  width:8px;height:8px;border-radius:50%;
   background:rgba(255,255,255,.3);border:none;cursor:pointer;
   transition:all .3s ease;
 }
-.slide-dot.active{background:var(--saffron);transform:scale(1.3)}
+.slide-dot.active{background:var(--saffron);transform:scale(1.4)}
 .slide-arrow{
   position:absolute;top:50%;transform:translateY(-50%);
   background:rgba(255,255,255,.15);backdrop-filter:blur(4px);
   border:none;color:white;font-size:1.5rem;
-  width:40px;height:40px;border-radius:50%;cursor:pointer;
+  width:36px;height:36px;border-radius:50%;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
   transition:background .2s;z-index:2;
 }
 .slide-arrow:hover{background:rgba(255,255,255,.3)}
-.slide-arrow.prev{left:10px}
-.slide-arrow.next{right:10px}
+.slide-arrow.prev{left:6px}
+.slide-arrow.next{right:6px}
+.slide-pause{
+  position:absolute;top:10px;right:10px;z-index:3;
+  background:rgba(0,0,0,.4);backdrop-filter:blur(4px);
+  border:1px solid rgba(255,255,255,.2);color:white;
+  width:32px;height:32px;border-radius:8px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.9rem;transition:background .2s;
+}
+.slide-pause:hover{background:rgba(0,0,0,.6)}
+
+/* ═══ CHAKRA QUIZ ═══ */
+.quiz-wrap{max-width:720px;margin:0 auto;padding:2rem 1.5rem}
+.quiz-container{
+  background:linear-gradient(135deg,#0f0f2e,#1a1a3e);
+  border-radius:24px;overflow:hidden;
+  box-shadow:0 8px 40px rgba(0,0,0,.2);
+  padding:2rem 1.5rem;text-align:center;color:white;
+  position:relative;
+}
+.quiz-title{font-size:1.4rem;font-weight:700;margin-bottom:.25rem}
+.quiz-subtitle{font-size:.85rem;color:rgba(255,255,255,.5);margin-bottom:1.5rem}
+.chakra-spinner{
+  width:220px;height:220px;margin:0 auto 1.5rem;position:relative;
+}
+.chakra-svg{width:100%;height:100%;transition:transform 4s cubic-bezier(.2,.8,.3,1)}
+.chakra-svg.spinning{transition:transform 4s cubic-bezier(.2,.8,.3,1)}
+.spin-btn{
+  background:linear-gradient(135deg,var(--saffron),#e67300);
+  border:none;color:white;font-weight:700;font-size:1rem;
+  padding:.75rem 2.5rem;border-radius:100px;cursor:pointer;
+  box-shadow:0 4px 20px rgba(255,153,51,.3);
+  transition:transform .2s,box-shadow .2s;
+  margin-bottom:1rem;
+}
+.spin-btn:hover{transform:scale(1.05);box-shadow:0 6px 28px rgba(255,153,51,.4)}
+.spin-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.quiz-question{
+  background:rgba(255,255,255,.06);border-radius:16px;
+  padding:1.25rem;margin-top:1rem;display:none;
+}
+.quiz-question.show{display:block;animation:fadeUp .4s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.quiz-q{font-size:1rem;font-weight:600;margin-bottom:1rem;line-height:1.4}
+.quiz-cat{
+  display:inline-block;font-size:.7rem;font-weight:600;
+  padding:.2rem .7rem;border-radius:100px;margin-bottom:.75rem;
+  text-transform:uppercase;letter-spacing:.05em;
+}
+.quiz-opts{display:flex;flex-direction:column;gap:.5rem}
+.quiz-opt{
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);
+  border-radius:12px;padding:.75rem 1rem;cursor:pointer;
+  text-align:left;font-size:.9rem;color:rgba(255,255,255,.85);
+  transition:all .2s;
+}
+.quiz-opt:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.25)}
+.quiz-opt.correct{background:rgba(19,136,8,.3);border-color:var(--green);color:white}
+.quiz-opt.wrong{background:rgba(220,38,38,.2);border-color:#dc2626;color:white}
+.quiz-opt.disabled{pointer-events:none}
+.quiz-score{
+  margin-top:1rem;font-size:.85rem;color:rgba(255,255,255,.5);
+}
+.quiz-next{
+  display:none;margin-top:1rem;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  color:white;padding:.6rem 1.5rem;border-radius:100px;
+  cursor:pointer;font-weight:600;font-size:.85rem;
+}
+.quiz-next.show{display:inline-block}
+.confetti-piece{
+  position:fixed;width:8px;height:8px;border-radius:2px;
+  pointer-events:none;z-index:9999;animation:confettiFall 2s ease forwards;
+}
+@keyframes confettiFall{
+  0%{transform:translateY(0) rotate(0deg);opacity:1}
+  100%{transform:translateY(100vh) rotate(720deg);opacity:0}
+}
 
 /* ═══ ZONES ═══ */
 .zone-saffron{background:var(--saffron-light)}
@@ -313,7 +393,30 @@ body{
     </div>
     <button class="slide-arrow prev" onclick="changeSlide(-1)">&#8249;</button>
     <button class="slide-arrow next" onclick="changeSlide(1)">&#8250;</button>
+    <button class="slide-pause" id="pauseBtn" onclick="togglePause()" title="Pause/Play">&#9646;&#9646;</button>
     <div class="slide-nav" id="slideNav"></div>
+  </div>
+</div>
+
+<!-- ════════ CHAKRA QUIZ ════════ -->
+<div class="zone-saffron">
+  <div class="quiz-wrap fade-in">
+    <div class="quiz-container">
+      <div class="quiz-title">Spin the Chakra</div>
+      <div class="quiz-subtitle">Test your India knowledge</div>
+      <div class="chakra-spinner">
+        <svg class="chakra-svg" id="chakraSvg" viewBox="0 0 220 220">
+          <circle cx="110" cy="110" r="105" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="2"/>
+          <g id="wheelSlices"></g>
+          <circle cx="110" cy="110" r="30" fill="#1a1a3e" stroke="rgba(255,255,255,.15)" stroke-width="2"/>
+          <text x="110" y="115" text-anchor="middle" fill="white" font-size="11" font-weight="700">SPIN</text>
+        </svg>
+        <div style="position:absolute;top:-6px;left:50%;transform:translateX(-50);width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:14px solid var(--saffron);filter:drop-shadow(0 2px 4px rgba(0,0,0,.3))"></div>
+      </div>
+      <button class="spin-btn" id="spinBtn" onclick="spinChakra()">Spin the Chakra</button>
+      <div class="quiz-question" id="quizQ"></div>
+      <div class="quiz-score" id="quizScore"></div>
+    </div>
   </div>
 </div>
 
@@ -351,13 +454,13 @@ body{
         <p>One of the world's <span class="highlight">oldest living medical traditions</span>. Charaka's text even described the genetic basis of disease using seed-and-part theory.</p></div><img class="fact-thumb" src="images/oculist.png" alt="" loading="lazy">
     </div>
       <div class="fact-card">
-        <h3><span class="emoji">🛰️</span> KalamSat</h3>
-        <p>Indian students built KalamSat, a <span class="highlight">64-gram experimental space payload</span> — lighter than a tennis ball.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🛰️</span> KalamSat</h3>
+        <p>Indian students built KalamSat, a <span class="highlight">64-gram experimental space payload</span> — lighter than a tennis ball.</p></div><img class="fact-thumb" src="images/kalamsat.webp" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">🧫</span> Ancient Microbiology</h3>
-        <p>Charaka Samhita classified pathogenic vs non-pathogenic microbes and described <span class="highlight">communicable disease transmission</span> — centuries before microscopes.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🧫</span> Ancient Microbiology</h3>
+        <p>Charaka Samhita classified pathogenic vs non-pathogenic microbes and described <span class="highlight">communicable disease transmission</span> — centuries before microscopes.</p></div><img class="fact-thumb" src="images/oculist.png" alt="" loading="lazy">
+    </div>
     </div>
   </section>
 </div>
@@ -382,20 +485,20 @@ body{
       </div>
       <div class="fact-card">
       <div class="fact-content"><h3><span class="emoji">⚡</span> Shakuntala Devi</h3>
-        <p>The "Human Computer" multiplied two 13-digit numbers in her head in just <span class="highlight">28 seconds</span>.</p></div><img class="fact-thumb" src="images/shakuntala_devi.jpg" alt="" loading="lazy">
+        <p>The "Human Computer" multiplied two 13-digit numbers in her head in just <span class="highlight">28 seconds</span>.</p></div><img class="fact-thumb" src="images/shakuntala_devi.png" alt="" loading="lazy">
     </div>
       <div class="fact-card">
-        <h3><span class="emoji">π</span> Aryabhata's Pi</h3>
-        <p>Aryabhata gave π ≈ <span class="highlight">3.1416</span> in the 5th century — and humbly noted it was "approximate."</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">π</span> Aryabhata's Pi</h3>
+        <p>Aryabhata gave π ≈ <span class="highlight">3.1416</span> in the 5th century — and humbly noted it was "approximate."</p></div><img class="fact-thumb" src="images/pi_aryabhata.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">∞</span> Kerala's Infinite Series</h3>
-        <p>Madhava (c. 1340–1425) discovered <span class="highlight">power series for sine, cosine, and π</span> — predating Newton and Leibniz by ~250 years.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">∞</span> Kerala's Infinite Series</h3>
+        <p>Madhava (c. 1340–1425) discovered <span class="highlight">power series for sine, cosine, and π</span> — predating Newton and Leibniz by ~250 years.</p></div><img class="fact-thumb" src="images/kerala_series.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">➖</span> Negative Numbers</h3>
-        <p>Brahmagupta (598 CE) boldly introduced <span class="highlight">negative numbers</span> and defined division by zero as "khacheda" — the infinite.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">➖</span> Negative Numbers</h3>
+        <p>Brahmagupta (598 CE) boldly introduced <span class="highlight">negative numbers</span> and defined division by zero as "khacheda" — the infinite.</p></div><img class="fact-thumb" src="images/negative_numbers.jpg" alt="" loading="lazy">
+    </div>
     </div>
   </section>
 </div>
@@ -411,21 +514,21 @@ body{
     </div>
     <div class="facts-grid">
       <div class="fact-card">
-        <h3><span class="emoji">📰</span> Multilingual Press</h3>
-        <p>India has one of the world's <span class="highlight">largest and most multilingual</span> newspaper ecosystems.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">📰</span> Multilingual Press</h3>
+        <p>India has one of the world's <span class="highlight">largest and most multilingual</span> newspaper ecosystems.</p></div><img class="fact-thumb" src="images/english_india.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">🗺️</span> 121 Languages, 270 Mother Tongues</h3>
-        <p>India's Census recorded <span class="highlight">121 languages and 270 mother tongues</span>, with 22 scheduled languages.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🗺️</span> 121 Languages, 270 Mother Tongues</h3>
+        <p>India's Census recorded <span class="highlight">121 languages and 270 mother tongues</span>, with 22 scheduled languages.</p></div><img class="fact-thumb" src="images/sanskrit.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">🇬🇧</span> English-Speaking Population</h3>
-        <p>India has <span class="highlight">over 100 million English speakers</span>, mostly as a second or third language.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🇬🇧</span> English-Speaking Population</h3>
+        <p>India has <span class="highlight">over 100 million English speakers</span>, mostly as a second or third language.</p></div><img class="fact-thumb" src="images/english_india.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">📜</span> Sanskrit Grammar</h3>
-        <p>Panini's grammar (4th c. BCE) is one of the world's <span class="highlight">most sophisticated formal linguistic systems</span> — studied by modern computational linguists.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">📜</span> Sanskrit Grammar</h3>
+        <p>Panini's grammar (4th c. BCE) is one of the world's <span class="highlight">most sophisticated formal linguistic systems</span> — studied by modern computational linguists.</p></div><img class="fact-thumb" src="images/sanskrit.jpg" alt="" loading="lazy">
+    </div>
     </div>
   </section>
 </div>
@@ -445,33 +548,33 @@ body{
         <p>Chess traces its roots to India's <span class="highlight">chaturanga</span>, played by the 6th–7th century CE.</p></div><img class="fact-thumb" src="images/chaturanga.jpg" alt="" loading="lazy">
     </div>
       <div class="fact-card">
-        <h3><span class="emoji">🎲</span> Snakes &amp; Ladders</h3>
-        <p>Evolved from Indian moral board-game traditions such as <span class="highlight">Moksha Patam</span>.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🎲</span> Snakes &amp; Ladders</h3>
+        <p>Evolved from Indian moral board-game traditions such as <span class="highlight">Moksha Patam</span>.</p></div><img class="fact-thumb" src="images/chaturanga.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
       <div class="fact-content"><h3><span class="emoji">🧘</span> Yoga — UNESCO Heritage</h3>
         <p>An ancient Indian discipline and <span class="highlight">UNESCO-recognized</span> intangible cultural heritage.</p></div><img class="fact-thumb" src="images/yoga.jpg" alt="" loading="lazy">
     </div>
       <div class="fact-card">
-        <h3><span class="emoji">🥋</span> Kalaripayattu</h3>
-        <p>India's ancient martial tradition from <span class="highlight">Kerala</span> — one of the world's oldest fighting systems.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🥋</span> Kalaripayattu</h3>
+        <p>India's ancient martial tradition from <span class="highlight">Kerala</span> — one of the world's oldest fighting systems.</p></div><img class="fact-thumb" src="images/kalaripayattu.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">🏛️</span> Taxila — Ancient Learning</h3>
-        <p>One of the ancient world's <span class="highlight">great centers of learning</span>, attracting scholars from across Asia.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🏛️</span> Taxila — Ancient Learning</h3>
+        <p>One of the ancient world's <span class="highlight">great centers of learning</span>, attracting scholars from across Asia.</p></div><img class="fact-thumb" src="images/four_religions.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">🙏</span> Birthplace of 4 Religions</h3>
-        <p>The Indian subcontinent gave rise to <span class="highlight">Hinduism, Buddhism, Jainism, and Sikhism</span>.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🙏</span> Birthplace of 4 Religions</h3>
+        <p>The Indian subcontinent gave rise to <span class="highlight">Hinduism, Buddhism, Jainism, and Sikhism</span>.</p></div><img class="fact-thumb" src="images/four_religions.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">💎</span> Ancient Diamond Source</h3>
-        <p>For centuries, India was one of the world's <span class="highlight">earliest and most important diamond sources</span>.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">💎</span> Ancient Diamond Source</h3>
+        <p>For centuries, India was one of the world's <span class="highlight">earliest and most important diamond sources</span>.</p></div><img class="fact-thumb" src="images/diamond.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">🏙️</span> Varanasi</h3>
-        <p>One of the world's <span class="highlight">oldest continuously inhabited cities</span> and a major sacred center.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🏙️</span> Varanasi</h3>
+        <p>One of the world's <span class="highlight">oldest continuously inhabited cities</span> and a major sacred center.</p></div><img class="fact-thumb" src="images/varanasi2.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
       <div class="fact-content"><h3><span class="emoji">🛕</span> Kumbh Mela</h3>
         <p>UNESCO recognizes it as the <span class="highlight">largest peaceful congregation of pilgrims</span> on Earth.</p></div><img class="fact-thumb" src="images/kumbh_mela.jpg" alt="" loading="lazy">
@@ -495,29 +598,29 @@ body{
     </div>
     <div class="facts-grid">
       <div class="fact-card">
-        <h3><span class="emoji">🥛</span> Largest Milk Producer</h3>
-        <p>India contributes roughly <span class="highlight">a quarter of global milk output</span>.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🥛</span> Largest Milk Producer</h3>
+        <p>India contributes roughly <span class="highlight">a quarter of global milk output</span>.</p></div><img class="fact-thumb" src="images/yoga.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">🥭</span> Mango Capital</h3>
-        <p>India is the <span class="highlight">world's largest mango producer</span>.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🥭</span> Mango Capital</h3>
+        <p>India is the <span class="highlight">world's largest mango producer</span>.</p></div><img class="fact-thumb" src="images/samosa.png" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
       <div class="fact-content"><h3><span class="emoji">🌶️</span> Spice Powerhouse</h3>
         <p>Delhi's <span class="highlight">Khari Baoli</span> is one of Asia's most famous spice markets.</p></div><img class="fact-thumb" src="images/khari_baoli.jpg" alt="" loading="lazy">
     </div>
       <div class="fact-card">
-        <h3><span class="emoji">🥗</span> Vegetarian Nation</h3>
-        <p>India has one of the <span class="highlight">world's largest vegetarian populations</span>.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🥗</span> Vegetarian Nation</h3>
+        <p>India has one of the <span class="highlight">world's largest vegetarian populations</span>.</p></div><img class="fact-thumb" src="images/samosa.png" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">🍽️</span> Golden Temple Langar</h3>
-        <p>At the Golden Temple, anyone can sit and eat a <span class="highlight">free meal</span> — one of the world's most powerful traditions of service.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🍽️</span> Golden Temple Langar</h3>
+        <p>At the Golden Temple, anyone can sit and eat a <span class="highlight">free meal</span> — one of the world's most powerful traditions of service.</p></div><img class="fact-thumb" src="images/golden-temple.png" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">🌱</span> Ancient Organic Farming</h3>
-        <p>Surapala's Vrksayurveda (10th c.) described <span class="highlight">bio-pesticides, soil testing, and crop rotation</span> — validated 80% effective by modern ICAR testing.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🌱</span> Ancient Organic Farming</h3>
+        <p>Surapala's Vrksayurveda (10th c.) described <span class="highlight">bio-pesticides, soil testing, and crop rotation</span> — validated 80% effective by modern ICAR testing.</p></div><img class="fact-thumb" src="images/mawsynram.jpg" alt="" loading="lazy">
+    </div>
     </div>
   </section>
 </div>
@@ -541,21 +644,21 @@ body{
         <p>Mawsynram, Meghalaya receives over <span class="highlight">11,000 mm</span> of annual rainfall.</p></div><img class="fact-thumb" src="images/mawsynram.jpg" alt="" loading="lazy">
     </div>
       <div class="fact-card">
-        <h3><span class="emoji">☄️</span> Lonar Crater Lake</h3>
-        <p>A rare saline-alkaline lake inside a <span class="highlight">meteor-impact crater</span> in Maharashtra.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">☄️</span> Lonar Crater Lake</h3>
+        <p>A rare saline-alkaline lake inside a <span class="highlight">meteor-impact crater</span> in Maharashtra.</p></div><img class="fact-thumb" src="images/sundarbans.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">🏝️</span> North Sentinel Island</h3>
-        <p>Home to the Sentinelese, an Indigenous people <span class="highlight">protected by strict non-contact rules</span>.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🏝️</span> North Sentinel Island</h3>
+        <p>Home to the Sentinelese, an Indigenous people <span class="highlight">protected by strict non-contact rules</span>.</p></div><img class="fact-thumb" src="images/sundarbans.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
       <div class="fact-content"><h3><span class="emoji">🌳</span> Largest Mangrove Forest</h3>
         <p>The Sundarbans form the <span class="highlight">world's largest mangrove forest</span>.</p></div><img class="fact-thumb" src="images/sundarbans.jpg" alt="" loading="lazy">
     </div>
       <div class="fact-card">
-        <h3><span class="emoji">🕐</span> One Time Zone</h3>
-        <p>Over 2,900 km east-to-west, one <span class="highlight">single time zone</span> — UTC+5:30.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🕐</span> One Time Zone</h3>
+        <p>Over 2,900 km east-to-west, one <span class="highlight">single time zone</span> — UTC+5:30.</p></div><img class="fact-thumb" src="images/mathematicians-map.png" alt="" loading="lazy">
+    </div>
     </div>
   </section>
 </div>
@@ -575,9 +678,9 @@ body{
         <p>India produces <span class="highlight">over 2,500 films</span> annually — leading the world.</p></div><img class="fact-thumb" src="images/bollywood.jpg" alt="" loading="lazy">
     </div>
       <div class="fact-card">
-        <h3><span class="emoji">🎞️</span> Beyond Bollywood</h3>
-        <p>Indian cinema spans <span class="highlight">Hindi, Tamil, Telugu, Malayalam, Bengali, Kannada, Marathi</span> and more.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🎞️</span> Beyond Bollywood</h3>
+        <p>Indian cinema spans <span class="highlight">Hindi, Tamil, Telugu, Malayalam, Bengali, Kannada, Marathi</span> and more.</p></div><img class="fact-thumb" src="images/bollywood.jpg" alt="" loading="lazy">
+    </div>
     </div>
   </section>
 </div>
@@ -601,21 +704,21 @@ body{
         <p>India Post operates about <span class="highlight">165,000 post offices</span> — including a floating one on Dal Lake.</p></div><img class="fact-thumb" src="images/dal_lake_post.jpg" alt="" loading="lazy">
     </div>
       <div class="fact-card">
-        <h3><span class="emoji">🏗️</span> Brihadisvara Temple</h3>
-        <p>Completed around <span class="highlight">1010 CE</span>, one of India's greatest granite monuments.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🏗️</span> Brihadisvara Temple</h3>
+        <p>Completed around <span class="highlight">1010 CE</span>, one of India's greatest granite monuments.</p></div><img class="fact-thumb" src="images/ellora_caves.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">🛣️</span> 2nd Largest Road Network</h3>
-        <p>India has the world's <span class="highlight">second-largest road network</span>.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🛣️</span> 2nd Largest Road Network</h3>
+        <p>India has the world's <span class="highlight">second-largest road network</span>.</p></div><img class="fact-thumb" src="images/statue_of_unity.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">🏏</span> Highest Cricket Ground</h3>
-        <p>Chail, Himachal Pradesh — <span class="highlight">2,444 meters</span> above sea level.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">🏏</span> Highest Cricket Ground</h3>
+        <p>Chail, Himachal Pradesh — <span class="highlight">2,444 meters</span> above sea level.</p></div><img class="fact-thumb" src="images/himalayas.png" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
-        <h3><span class="emoji">👑</span> Gold Reserves</h3>
-        <p>Indian households hold one of the world's <span class="highlight">largest private gold stocks</span> — above 20,000 tonnes.</p>
-      </div>
+      <div class="fact-content"><h3><span class="emoji">👑</span> Gold Reserves</h3>
+        <p>Indian households hold one of the world's <span class="highlight">largest private gold stocks</span> — above 20,000 tonnes.</p></div><img class="fact-thumb" src="images/taj_mahal.jpg" alt="" loading="lazy">
+    </div>
       <div class="fact-card">
       <div class="fact-content"><h3><span class="emoji">🕌</span> Taj Mahal</h3>
         <p>A <span class="highlight">17th-century marble masterpiece</span> and UNESCO World Heritage Site.</p></div><img class="fact-thumb" src="images/taj_mahal.jpg" alt="" loading="lazy">
@@ -647,14 +750,15 @@ const obs = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 
-// Slideshow
-let cur = 0;
+// ── SLIDESHOW ──
+let cur = 0, paused = false, autoTimer;
 const slides = document.querySelectorAll('.slide');
 const nav = document.getElementById('slideNav');
+const pauseBtn = document.getElementById('pauseBtn');
 slides.forEach((_, i) => {
   const dot = document.createElement('button');
   dot.className = 'slide-dot' + (i === 0 ? ' active' : '');
-  dot.onclick = () => goSlide(i);
+  dot.onclick = () => { goSlide(i); resetAuto(); };
   nav.appendChild(dot);
 });
 function goSlide(n) {
@@ -664,8 +768,138 @@ function goSlide(n) {
   slides[cur].classList.add('active');
   nav.children[cur].classList.add('active');
 }
-function changeSlide(d) { goSlide(cur + d); }
-setInterval(() => goSlide(cur + 1), 5000);
+function changeSlide(d) { goSlide(cur + d); resetAuto(); }
+function resetAuto() { clearInterval(autoTimer); if (!paused) autoTimer = setInterval(() => goSlide(cur + 1), 5000); }
+function togglePause() {
+  paused = !paused;
+  pauseBtn.innerHTML = paused ? '&#9654;' : '&#9646;&#9646;';
+  pauseBtn.title = paused ? 'Play' : 'Pause';
+  if (paused) clearInterval(autoTimer); else resetAuto();
+}
+resetAuto();
+
+// ── CHAKRA QUIZ ──
+const categories = [
+  { name: 'Space', color: '#818cf8', bg: 'rgba(99,102,241,.2)' },
+  { name: 'Science', color: '#38bdf8', bg: 'rgba(56,189,248,.2)' },
+  { name: 'Culture', color: '#fb7185', bg: 'rgba(244,63,94,.2)' },
+  { name: 'Language', color: '#34d399', bg: 'rgba(16,185,129,.2)' },
+  { name: 'Nature', color: '#a78bfa', bg: 'rgba(167,139,250,.2)' },
+  { name: 'Food', color: '#fb923c', bg: 'rgba(251,146,60,.2)' },
+];
+const questions = [
+  { cat: 0, q: "What did Chandrayaan-3 achieve in 2023?", opts: ["First Mars orbit", "First soft-landing near Moon's south pole", "Launched world's lightest satellite", "Discovered water on Jupiter"], ans: 1 },
+  { cat: 0, q: "What was notable about India's Mangalyaan mission?", opts: ["It was the largest spacecraft ever", "It reached Mars on India's first attempt", "It landed humans on Mars", "It orbited Venus"], ans: 1 },
+  { cat: 1, q: "Sushruta's ancient texts are associated with which field?", opts: ["Astronomy", "Architecture", "Surgery and medicine", "Metallurgy"], ans: 2 },
+  { cat: 1, q: "What did India's mathematical tradition help develop?", opts: ["Roman numerals", "Zero as a numeral and decimal place value", "The abacus", "Binary code"], ans: 1 },
+  { cat: 2, q: "Which ancient Indian game evolved into modern chess?", opts: ["Pachisi", "Moksha Patam", "Chaturanga", "Pallanguzhi"], ans: 2 },
+  { cat: 2, q: "Kumbh Mela is recognized by UNESCO as what?", opts: ["World's oldest festival", "Largest peaceful congregation of pilgrims", "Best cultural event", "Most colorful festival"], ans: 1 },
+  { cat: 3, q: "How many languages did India's 2011 Census record?", opts: ["22", "58", "121", "720"], ans: 2 },
+  { cat: 3, q: "What is special about Panini's Sanskrit grammar?", opts: ["It's the shortest text ever", "One of the world's most sophisticated formal linguistic systems", "It invented the alphabet", "It was written in binary"], ans: 1 },
+  { cat: 4, q: "What is unique about India's Lonar Lake?", opts: ["It's the deepest lake in Asia", "It's inside a meteor-impact crater", "It changes color every hour", "It has no water"], ans: 1 },
+  { cat: 4, q: "The Sundarbans is the world's largest what?", opts: ["Desert", "Coral reef", "Mangrove forest", "Glacier"], ans: 2 },
+  { cat: 5, q: "What does the Golden Temple's langar provide?", opts: ["Gold coins to visitors", "Free meals to everyone regardless of background", "Music concerts", "Guided tours"], ans: 1 },
+  { cat: 5, q: "India is the world's largest producer of which fruit?", opts: ["Banana", "Apple", "Mango", "Grape"], ans: 2 },
+];
+
+let qIdx = 0, score = 0, totalAnswered = 0, usedQ = [];
+
+// Draw wheel
+const sliceG = document.getElementById('wheelSlices');
+const sliceAngle = 360 / categories.length;
+categories.forEach((cat, i) => {
+  const startA = (i * sliceAngle - 90) * Math.PI / 180;
+  const endA = ((i + 1) * sliceAngle - 90) * Math.PI / 180;
+  const x1 = 110 + 100 * Math.cos(startA), y1 = 110 + 100 * Math.sin(startA);
+  const x2 = 110 + 100 * Math.cos(endA), y2 = 110 + 100 * Math.sin(endA);
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('d', `M110,110 L${x1},${y1} A100,100 0 0,1 ${x2},${y2} Z`);
+  path.setAttribute('fill', cat.bg);
+  path.setAttribute('stroke', 'rgba(255,255,255,.1)');
+  path.setAttribute('stroke-width', '1');
+  sliceG.appendChild(path);
+  const midA = ((i + 0.5) * sliceAngle - 90) * Math.PI / 180;
+  const tx = 110 + 65 * Math.cos(midA), ty = 110 + 65 * Math.sin(midA);
+  const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  txt.setAttribute('x', tx); txt.setAttribute('y', ty + 4);
+  txt.setAttribute('text-anchor', 'middle');
+  txt.setAttribute('fill', cat.color); txt.setAttribute('font-size', '10');
+  txt.setAttribute('font-weight', '600');
+  txt.textContent = cat.name;
+  sliceG.appendChild(txt);
+});
+
+function spinChakra() {
+  const btn = document.getElementById('spinBtn');
+  const svg = document.getElementById('chakraSvg');
+  btn.disabled = true;
+  document.getElementById('quizQ').className = 'quiz-question';
+  const catIdx = Math.floor(Math.random() * categories.length);
+  const extraSpins = 5 + Math.floor(Math.random() * 3);
+  const targetAngle = extraSpins * 360 + (360 - catIdx * sliceAngle - sliceAngle / 2);
+  svg.style.transform = `rotate(${targetAngle}deg)`;
+  setTimeout(() => showQuestion(catIdx, btn), 4200);
+}
+
+function showQuestion(catIdx) {
+  const catQs = questions.filter(q => q.cat === catIdx && !usedQ.includes(questions.indexOf(q)));
+  if (catQs.length === 0) {
+    const allUnused = questions.filter((_, i) => !usedQ.includes(i));
+    if (allUnused.length === 0) { usedQ = []; return spinChakra(); }
+    return showQuestion(questions.indexOf(allUnused[0]) < 6 ? allUnused[0].cat : catIdx);
+  }
+  const q = catQs[Math.floor(Math.random() * catQs.length)];
+  qIdx = questions.indexOf(q);
+  usedQ.push(qIdx);
+  const cat = categories[q.cat];
+  const qDiv = document.getElementById('quizQ');
+  qDiv.innerHTML = `
+    <div class="quiz-cat" style="background:${cat.bg};color:${cat.color}">${cat.name}</div>
+    <div class="quiz-q">${q.q}</div>
+    <div class="quiz-opts">${q.opts.map((o, i) => `<div class="quiz-opt" onclick="answer(${i},${q.ans},this)">${o}</div>`).join('')}</div>
+    <button class="quiz-next" id="nextBtn" onclick="nextQ()">Next Spin</button>
+  `;
+  qDiv.className = 'quiz-question show';
+}
+
+function answer(picked, correct, el) {
+  const opts = el.parentElement.querySelectorAll('.quiz-opt');
+  opts.forEach((o, i) => {
+    o.classList.add('disabled');
+    if (i === correct) o.classList.add('correct');
+    else if (i === picked) o.classList.add('wrong');
+  });
+  totalAnswered++;
+  if (picked === correct) { score++; confetti(); }
+  document.getElementById('quizScore').textContent = `Score: ${score}/${totalAnswered}`;
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQ() {
+  document.getElementById('spinBtn').disabled = false;
+  document.getElementById('quizQ').className = 'quiz-question';
+  const svg = document.getElementById('chakraSvg');
+  svg.style.transition = 'none';
+  svg.style.transform = 'rotate(0deg)';
+  setTimeout(() => { svg.style.transition = 'transform 4s cubic-bezier(.2,.8,.3,1)'; }, 50);
+}
+
+function confetti() {
+  const colors = ['#FF9933', '#FFFFFF', '#138808', '#000080', '#fbbf24', '#fb7185'];
+  for (let i = 0; i < 40; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = (20 + Math.random() * 60) + 'vw';
+    piece.style.top = (10 + Math.random() * 20) + 'vh';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.width = (6 + Math.random() * 6) + 'px';
+    piece.style.height = (6 + Math.random() * 6) + 'px';
+    piece.style.animationDuration = (1.5 + Math.random()) + 's';
+    piece.style.animationDelay = (Math.random() * 0.3) + 's';
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 3000);
+  }
+}
 </script>
 </body>
 </html>
