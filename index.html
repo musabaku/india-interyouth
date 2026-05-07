@@ -195,6 +195,24 @@ body{
   cursor:pointer;font-weight:600;font-size:.85rem;
 }
 .quiz-next.show{display:inline-block}
+/* ═══ MUSIC BUTTON ═══ */
+.music-btn{
+  position:fixed;bottom:16px;right:16px;z-index:999;
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(0,0,0,.5);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.15);
+  color:white;font-size:1.2rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .2s,background .2s;
+  box-shadow:0 4px 16px rgba(0,0,0,.3);
+}
+.music-btn:hover{transform:scale(1.1);background:rgba(0,0,0,.7)}
+.music-btn.playing{animation:pulse-glow 2s ease infinite}
+@keyframes pulse-glow{
+  0%,100%{box-shadow:0 4px 16px rgba(0,0,0,.3)}
+  50%{box-shadow:0 4px 24px rgba(255,153,51,.4)}
+}
+
 .confetti-piece{
   position:fixed;width:8px;height:8px;border-radius:2px;
   pointer-events:none;z-index:9999;animation:confettiFall 2s ease forwards;
@@ -900,6 +918,45 @@ function confetti() {
     setTimeout(() => piece.remove(), 3000);
   }
 }
+
+// ── BACKGROUND MUSIC ──
+const bgMusic = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('musicBtn');
+let musicPlaying = false;
+
+function toggleMusic() {
+  if (musicPlaying) {
+    bgMusic.pause();
+    musicBtn.innerHTML = '🔇';
+    musicBtn.classList.remove('playing');
+  } else {
+    bgMusic.play().catch(() => {});
+    musicBtn.innerHTML = '🎵';
+    musicBtn.classList.add('playing');
+  }
+  musicPlaying = !musicPlaying;
+}
+
+// Autoplay on first user interaction (browsers block autoplay without interaction)
+function startMusic() {
+  if (!musicPlaying) {
+    bgMusic.play().then(() => {
+      musicPlaying = true;
+      musicBtn.innerHTML = '🎵';
+      musicBtn.classList.add('playing');
+    }).catch(() => {});
+  }
+  document.removeEventListener('click', startMusic);
+  document.removeEventListener('touchstart', startMusic);
+  document.removeEventListener('scroll', startMusic);
+}
+document.addEventListener('click', startMusic, { once: true });
+document.addEventListener('touchstart', startMusic, { once: true });
+document.addEventListener('scroll', startMusic, { once: true });
 </script>
+
+<audio id="bgMusic" loop preload="auto"><source src="bg-music.mp3" type="audio/mpeg"></audio>
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="Toggle music">🎵</button>
+
 </body>
 </html>
